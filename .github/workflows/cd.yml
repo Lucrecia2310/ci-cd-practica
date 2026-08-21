@@ -15,22 +15,24 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    environment:
+      name: production
+
     steps:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
         with:
           ref: main
 
-      - name: Crear paquete desplegable
-        run: |
-          mkdir deploy
-          cp -r src deploy/
-          cp package.json deploy/
-          cp package-lock.json deploy/
-          tar -czf aplicacion.tar.gz deploy/
-
-      - name: Subir artefacto desplegable
-        uses: actions/upload-artifact@v4
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
         with:
-          name: aplicacion-desplegable
-          path: aplicacion.tar.gz
+          node-version: 22
+
+      - name: Instalar Railway CLI
+        run: npm install -g @railway/cli
+
+      - name: Desplegar aplicación en Railway
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: railway up --service ci-cd-practica --environment production --ci
