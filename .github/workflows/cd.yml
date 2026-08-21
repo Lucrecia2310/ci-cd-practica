@@ -1,0 +1,36 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows:
+      - CI Pipeline
+    types:
+      - completed
+    branches:
+      - main
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Crear paquete desplegable
+        run: |
+          mkdir deploy
+          cp -r src deploy/
+          cp package.json deploy/
+          cp package-lock.json deploy/
+          tar -czf aplicacion.tar.gz deploy/
+
+      - name: Subir artefacto desplegable
+        uses: actions/upload-artifact@v4
+        with:
+          name: aplicacion-desplegable
+          path: aplicacion.tar.gz
