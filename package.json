@@ -1,0 +1,23 @@
+{
+  "name": "ci-cd-practica",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+"scripts": {
+  "start": "node src/app.js",
+  "test": "jest",
+  "test:coverage": "jest --coverage",
+  "lint": "eslint src tests"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^10.8.1",
+    "jest": "^30.4.2"
+  }
+}
