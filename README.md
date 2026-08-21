@@ -41,3 +41,7 @@ npm run test:coverage
 Ejecutar el análisis de código:
 
 npm run lint
+
+## Integración continua
+
+El proyecto utiliza GitHub Actions para ejecutar automáticamente linting, pruebas unitarias y generación del reporte de cobertura.
