@@ -32,6 +32,18 @@ jobs:
       - name: Instalar Railway CLI
         run: npm install -g @railway/cli
 
+      - name: Verificar secret de Railway
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          if [ -z "$RAILWAY_TOKEN" ]; then
+            echo "ERROR: RAILWAY_TOKEN está vacío"
+            exit 1
+          else
+            echo "RAILWAY_TOKEN está disponible"
+            echo "Longitud: ${#RAILWAY_TOKEN} caracteres"
+          fi
+
       - name: Desplegar aplicación en Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
