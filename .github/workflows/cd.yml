@@ -15,8 +15,8 @@ jobs:
 
     runs-on: ubuntu-latest
 
- environment:
-  name: amused-spontaneity / production
+    environment:
+      name: "amused-spontaneity / production"
 
     steps:
       - name: Checkout del repositorio
